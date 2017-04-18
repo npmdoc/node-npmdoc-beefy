@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/chrisdickinson/beefy#readme"
-
-    >beefy (v2.1.8)</a>
+    <a href="https://github.com/chrisdickinson/beefy#readme">beefy (v2.1.8)</a>
 </h1>
 <h4>local development server that aims to make using browserify fast and fun</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.beefy">module beefy</a><ol>
 
@@ -287,7 +280,7 @@
   var io = makeIO(process, process.stdout, process.stderr)
 
   opts =
-    typeof opts === &#x27;string&#x27; ? {entries: [opts]} :
+    typeof opts === 'string' ? {entries: [opts]} :
     Array.isArray(opts) ? {entries: opts} :
     opts
 
@@ -299,30 +292,30 @@
   opts.live = !!opts.live
   opts.watchify = opts.watchify === undefined ? true : opts.watchify
 
-  var args = [&#x27;9999&#x27;]
+  var args = ['9999']
     , innerHandler
 
   if(opts.cwd) {
-    args.push(&#x27;--cwd&#x27;, opts.cwd)
+    args.push('--cwd', opts.cwd)
   }
 
   if(opts.live) {
-    args.push(&#x27;--live&#x27;)
+    args.push('--live')
   }
 
-  if(typeof opts.bundler === &#x27;string&#x27;) {
-    args.push(&#x27;--bundler&#x27;, opts.bundler)
+  if(typeof opts.bundler === 'string') {
+    args.push('--bundler', opts.bundler)
   }
 
   if(opts.index) {
-    args.push(&#x27;--index&#x27;, opts.index)
+    args.push('--index', opts.index)
   }
 
-  if(&#x27;watchify&#x27; in opts &#x26;&#x26; !opts.watchify) {
-    args.push(&#x27;--no-watchify&#x27;)
+  if('watchify' in opts &amp;&amp; !opts.watchify) {
+    args.push('--no-watchify')
   }
 
-  args.push(&#x27;--&#x27;)
+  args.push('--')
   args = args.concat(opts.bundlerFlags)
 
   parseArgs(args, opts.cwd, function(err, genOpts) {
@@ -334,11 +327,11 @@
       throw err
     }
 
-    switch(opts.bundler &#x26;&#x26; typeof opts.bundler) {
-      case &#x27;function&#x27;:
+    switch(opts.bundler &amp;&amp; typeof opts.bundler) {
+      case 'function':
         genOpts.handler.bundler.command = opts.bundler
         break
-      case &#x27;object&#x27;:
+      case 'object':
         genOpts.handler.bundler = opts.bundler
         break
     }
@@ -365,9 +358,9 @@
       entry = path.resolve(opts.cwd, entry)
 
       obj[entry
-        .replace(opts.cwd, &#x27;/&#x27;)
-        .replace(&#x27;\\&#x27;, &#x27;/&#x27;)
-        .replace(/\/+/g, &#x27;/&#x27;)] = entry
+        .replace(opts.cwd, '/')
+        .replace('\\', '/')
+        .replace(/\/+/g, '/')] = entry
 
       return obj
     }
@@ -399,13 +392,13 @@
     if(error.length) {
       var buffers = []
 
-      for(var i = 0; i &#x3c; error.length; ++i) {
+      for(var i = 0; i &lt; error.length; ++i) {
         buffers.push(Buffer(error[i]))
       }
 
       outputError(Buffer.concat(buffers))
       resp.end(
-          &#x27;(&#x27; + DOMError + &#x27;)(&#x27; + JSON.stringify(error + &#x27;&#x27;) + &#x27;)&#x27;
+          '(' + DOMError + ')(' + JSON.stringify(error + '') + ')'
       )
     }
 
@@ -428,14 +421,14 @@
   var idx = argv.length
     , nestLevel = 0
 
-  for(var i = 0, len = argv.length; i &#x3c; len; ++i) {
-    if(argv[i] === &#x27;[&#x27;) {
+  for(var i = 0, len = argv.length; i &lt; len; ++i) {
+    if(argv[i] === '[') {
       ++nestLevel
-    } else if(argv[i] === &#x27;]&#x27;) {
+    } else if(argv[i] === ']') {
       --nestLevel
     }
 
-    if(argv[i] === &#x27;--&#x27; &#x26;&#x26; !nestLevel) {
+    if(argv[i] === '--' &amp;&amp; !nestLevel) {
       idx = i
 
       break
@@ -461,9 +454,9 @@
   parsed.watchify = parsed.watchify === undefined ? true : parsed.watchify
   parsed.index = parsed.i || parsed.index
 
-  if(!parsed.bundler &#x26;&#x26; parsed.debug !== &#x27;false&#x27;) {
-    if(bundlerFlags.indexOf(&#x27;-d&#x27;) === -1) {
-      bundlerFlags.unshift(&#x27;-d&#x27;)
+  if(!parsed.bundler &amp;&amp; parsed.debug !== 'false') {
+    if(bundlerFlags.indexOf('-d') === -1) {
+      bundlerFlags.unshift('-d')
     }
   }
 
@@ -500,8 +493,8 @@
 
   function buildOutput() {
     var openOptions = {
-        openURL: (typeof parsed.url === &#x27;string&#x27; &#x26;&#x26; parsed.url) ||
-                 (&#x27;http://127.0.0.1:&#x27; + parsed.port)
+        openURL: (typeof parsed.url === 'string' &amp;&amp; parsed.url) ||
+                 ('http://127.0.0.1:' + parsed.port)
       , openBrowser: !!(parsed.open || parsed.url)
       , showHelp: !!parsed.help
       , port: parsed.port
@@ -576,8 +569,8 @@
   }
 
   function _404(server, req, resp, parsed) {
-    resp.writeHead(404, {&#x27;content-type&#x27;: &#x27;text/plain&#x27;})
-    resp.end(&#x27;not found ):&#x27;)
+    resp.writeHead(404, {'content-type': 'text/plain'})
+    resp.end('not found ):')
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -599,7 +592,7 @@
   remain = parsed._.slice()
   port = parsed.port
 
-  if(!isNaN(+remain[remain.length - 1]) &#x26;&#x26; !parsed.port) {
+  if(!isNaN(+remain[remain.length - 1]) &amp;&amp; !parsed.port) {
     port = +remain[remain.length - 1]
     remain = remain.slice(0, -1)
   }
@@ -636,7 +629,7 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
   Spins up a development server on ``http://localhost:PORT`` for working
   with static files and browserifiable JavaScript modules.
 
-  If there&#x27;s a path it doesn&#x27;t recognize, it will serve up an empty HTML
+  If there's a path it doesn't recognize, it will serve up an empty HTML
   file with your javascript entry point included as a script tag.
   Otherwise you can provide your own ``index.html``.
 
@@ -658,7 +651,7 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
                                 entry point. If not provided,
                                 defaults to ``./node_modules/.bin/browserify``
                                 and falls back to ``which browserify``
-                                if that&#x27;s not available.
+                                if that's not available.
 
     --live                      Enable live reloading. Reloads the page
                                 every time your JavaScript changes.
@@ -673,9 +666,9 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
                                 for index.html.
 */
 </span>
-  var str = help + &#x27;&#x27;
+  var str = help + ''
 
-  io.error(str.slice(str.indexOf(&#x27;/*&#x27;) + 3, str.indexOf(&#x27;*/&#x27;)))
+  io.error(str.slice(str.indexOf('/*') + 3, str.indexOf('*/')))
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -701,12 +694,12 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
 
   function outputLog(what) {
     stdout.write(what)
-    stdout.write(&#x27;\n&#x27;)
+    stdout.write('\n')
   }
 
   function outputError(what) {
     stderr.write(what)
-    stderr.write(&#x27;\n&#x27;)
+    stderr.write('\n')
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -722,17 +715,17 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function normalizeEntryPoints(entryPoints) {
-  // entryPoint ::= file &#x22;:&#x22; repr
-  //              | &#x22;:&#x22; repr
+  // entryPoint ::= file ":" repr
+  //              | ":" repr
   //              | file
   //
   // file ::= relativePath
   //        | absolutePath
   //        | implicitRelativePath
   //
-  // relativePath ::= &#x22;.&#x22; path
+  // relativePath ::= "." path
   //
-  // absolutePath ::= &#x3c;path-sep&#x3e; path
+  // absolutePath ::= &lt;path-sep&gt; path
   //
   // implicitRelativePath ::= path
   //
@@ -741,12 +734,12 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
   // repr ::= [^\s]+
   // -------------------------
   // output is `{repr: path, ...}`.
-  // repr&#x27;s *always* use `/`.
-  // path&#x27;s *may* use `\`.
+  // repr's *always* use `/`.
+  // path's *may* use `\`.
 
   var output = {}
 
-  for(var i = 0, len = entryPoints.length; i &#x3c; len; ++i) {
+  for(var i = 0, len = entryPoints.length; i &lt; len; ++i) {
     addEntryPoint(output, entryPoints[i])
   }
 
@@ -767,11 +760,11 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
     <li>description and source-code<pre class="apidocCodePre">function setupBundler(cwd, entryPoints, flags, noWatchify, ready) {
   noWatchify ?
     onlocalwatchify() :
-    resolve(&#x27;watchify&#x27;, {basedir: cwd}, onlocalwatchify)
+    resolve('watchify', {basedir: cwd}, onlocalwatchify)
 
   function onlocalwatchify(err, localDir) {
     if(err || !localDir) {
-      return resolve(&#x27;browserify&#x27;, {basedir: cwd}, onlocalbrowserify)
+      return resolve('browserify', {basedir: cwd}, onlocalbrowserify)
     }
 
     setupWatchify(path.dirname(localDir), entryPoints, flags, ready)
@@ -792,17 +785,17 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
 
     dirs = dirs.sort()
 
-    for(var i = 0, len = dirs.length; i &#x3c; len; ++i) {
-      if(!noWatchify &#x26;&#x26; path.basename(dirs[i]) === &#x27;watchify&#x27;) {
+    for(var i = 0, len = dirs.length; i &lt; len; ++i) {
+      if(!noWatchify &amp;&amp; path.basename(dirs[i]) === 'watchify') {
         return setupWatchify(dirs[i], entryPoints, flags, ready)
       }
 
-      if(path.basename(dirs[i]) === &#x27;browserify&#x27;) {
+      if(path.basename(dirs[i]) === 'browserify') {
         return setupBrowserify(dirs[i], entryPoints, flags, ready)
       }
     }
 
-    return ready(new Error(&#x27;Could not find a suitable bundler!&#x27;))
+    return ready(new Error('Could not find a suitable bundler!'))
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -851,13 +844,13 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
     if(error.length) {
       var buffers = []
 
-      for(var i = 0; i &#x3c; error.length; ++i) {
+      for(var i = 0; i &lt; error.length; ++i) {
         buffers.push(Buffer(error[i]))
       }
 
       outputError(Buffer.concat(buffers))
       resp.end(
-          &#x27;(&#x27; + DOMError + &#x27;)(&#x27; + JSON.stringify(error + &#x27;&#x27;) + &#x27;)&#x27;
+          '(' + DOMError + ')(' + JSON.stringify(error + '') + ')'
       )
     }
 
@@ -885,14 +878,14 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
   var idx = argv.length
     , nestLevel = 0
 
-  for(var i = 0, len = argv.length; i &#x3c; len; ++i) {
-    if(argv[i] === &#x27;[&#x27;) {
+  for(var i = 0, len = argv.length; i &lt; len; ++i) {
+    if(argv[i] === '[') {
       ++nestLevel
-    } else if(argv[i] === &#x27;]&#x27;) {
+    } else if(argv[i] === ']') {
       --nestLevel
     }
 
-    if(argv[i] === &#x27;--&#x27; &#x26;&#x26; !nestLevel) {
+    if(argv[i] === '--' &amp;&amp; !nestLevel) {
       idx = i
 
       break
@@ -918,9 +911,9 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
   parsed.watchify = parsed.watchify === undefined ? true : parsed.watchify
   parsed.index = parsed.i || parsed.index
 
-  if(!parsed.bundler &#x26;&#x26; parsed.debug !== &#x27;false&#x27;) {
-    if(bundlerFlags.indexOf(&#x27;-d&#x27;) === -1) {
-      bundlerFlags.unshift(&#x27;-d&#x27;)
+  if(!parsed.bundler &amp;&amp; parsed.debug !== 'false') {
+    if(bundlerFlags.indexOf('-d') === -1) {
+      bundlerFlags.unshift('-d')
     }
   }
 
@@ -957,8 +950,8 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
 
   function buildOutput() {
     var openOptions = {
-        openURL: (typeof parsed.url === &#x27;string&#x27; &#x26;&#x26; parsed.url) ||
-                 (&#x27;http://127.0.0.1:&#x27; + parsed.port)
+        openURL: (typeof parsed.url === 'string' &amp;&amp; parsed.url) ||
+                 ('http://127.0.0.1:' + parsed.port)
       , openBrowser: !!(parsed.open || parsed.url)
       , showHelp: !!parsed.help
       , port: parsed.port
@@ -1038,8 +1031,8 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
   }
 
   function _404(server, req, resp, parsed) {
-    resp.writeHead(404, {&#x27;content-type&#x27;: &#x27;text/plain&#x27;})
-    resp.end(&#x27;not found ):&#x27;)
+    resp.writeHead(404, {'content-type': 'text/plain'})
+    resp.end('not found ):')
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -1066,7 +1059,7 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
   remain = parsed._.slice()
   port = parsed.port
 
-  if(!isNaN(+remain[remain.length - 1]) &#x26;&#x26; !parsed.port) {
+  if(!isNaN(+remain[remain.length - 1]) &amp;&amp; !parsed.port) {
     port = +remain[remain.length - 1]
     remain = remain.slice(0, -1)
   }
@@ -1108,7 +1101,7 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
   Spins up a development server on ``http://localhost:PORT`` for working
   with static files and browserifiable JavaScript modules.
 
-  If there&#x27;s a path it doesn&#x27;t recognize, it will serve up an empty HTML
+  If there's a path it doesn't recognize, it will serve up an empty HTML
   file with your javascript entry point included as a script tag.
   Otherwise you can provide your own ``index.html``.
 
@@ -1130,7 +1123,7 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
                                 entry point. If not provided,
                                 defaults to ``./node_modules/.bin/browserify``
                                 and falls back to ``which browserify``
-                                if that&#x27;s not available.
+                                if that's not available.
 
     --live                      Enable live reloading. Reloads the page
                                 every time your JavaScript changes.
@@ -1145,9 +1138,9 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
                                 for index.html.
 */
 </span>
-  var str = help + &#x27;&#x27;
+  var str = help + ''
 
-  io.error(str.slice(str.indexOf(&#x27;/*&#x27;) + 3, str.indexOf(&#x27;*/&#x27;)))
+  io.error(str.slice(str.indexOf('/*') + 3, str.indexOf('*/')))
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -1178,12 +1171,12 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
 
   function outputLog(what) {
     stdout.write(what)
-    stdout.write(&#x27;\n&#x27;)
+    stdout.write('\n')
   }
 
   function outputError(what) {
     stderr.write(what)
-    stderr.write(&#x27;\n&#x27;)
+    stderr.write('\n')
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -1204,17 +1197,17 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function normalizeEntryPoints(entryPoints) {
-  // entryPoint ::= file &#x22;:&#x22; repr
-  //              | &#x22;:&#x22; repr
+  // entryPoint ::= file ":" repr
+  //              | ":" repr
   //              | file
   //
   // file ::= relativePath
   //        | absolutePath
   //        | implicitRelativePath
   //
-  // relativePath ::= &#x22;.&#x22; path
+  // relativePath ::= "." path
   //
-  // absolutePath ::= &#x3c;path-sep&#x3e; path
+  // absolutePath ::= &lt;path-sep&gt; path
   //
   // implicitRelativePath ::= path
   //
@@ -1223,12 +1216,12 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
   // repr ::= [^\s]+
   // -------------------------
   // output is `{repr: path, ...}`.
-  // repr&#x27;s *always* use `/`.
-  // path&#x27;s *may* use `\`.
+  // repr's *always* use `/`.
+  // path's *may* use `\`.
 
   var output = {}
 
-  for(var i = 0, len = entryPoints.length; i &#x3c; len; ++i) {
+  for(var i = 0, len = entryPoints.length; i &lt; len; ++i) {
     addEntryPoint(output, entryPoints[i])
   }
 
@@ -1254,11 +1247,11 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
     <li>description and source-code<pre class="apidocCodePre">function setupBundler(cwd, entryPoints, flags, noWatchify, ready) {
   noWatchify ?
     onlocalwatchify() :
-    resolve(&#x27;watchify&#x27;, {basedir: cwd}, onlocalwatchify)
+    resolve('watchify', {basedir: cwd}, onlocalwatchify)
 
   function onlocalwatchify(err, localDir) {
     if(err || !localDir) {
-      return resolve(&#x27;browserify&#x27;, {basedir: cwd}, onlocalbrowserify)
+      return resolve('browserify', {basedir: cwd}, onlocalbrowserify)
     }
 
     setupWatchify(path.dirname(localDir), entryPoints, flags, ready)
@@ -1279,17 +1272,17 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
 
     dirs = dirs.sort()
 
-    for(var i = 0, len = dirs.length; i &#x3c; len; ++i) {
-      if(!noWatchify &#x26;&#x26; path.basename(dirs[i]) === &#x27;watchify&#x27;) {
+    for(var i = 0, len = dirs.length; i &lt; len; ++i) {
+      if(!noWatchify &amp;&amp; path.basename(dirs[i]) === 'watchify') {
         return setupWatchify(dirs[i], entryPoints, flags, ready)
       }
 
-      if(path.basename(dirs[i]) === &#x27;browserify&#x27;) {
+      if(path.basename(dirs[i]) === 'browserify') {
         return setupBrowserify(dirs[i], entryPoints, flags, ready)
       }
     }
 
-    return ready(new Error(&#x27;Could not find a suitable bundler!&#x27;))
+    return ready(new Error('Could not find a suitable bundler!'))
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -1322,3 +1315,4 @@ beefy path/to/entry.js[:as.js] [PORT] -- [arguments to forward to bundler]
     ]
 </div>
 </div>
+</body></html>
