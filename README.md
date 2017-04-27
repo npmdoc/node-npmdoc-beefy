@@ -1,6 +1,6 @@
 # npmdoc-beefy
 
-#### api documentation for  [beefy (v2.1.8)](https://github.com/chrisdickinson/beefy#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-beefy.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-beefy) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-beefy.svg)](https://travis-ci.org/npmdoc/node-npmdoc-beefy)
+#### basic api documentation for  [beefy (v2.1.8)](https://github.com/chrisdickinson/beefy#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-beefy.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-beefy) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-beefy.svg)](https://travis-ci.org/npmdoc/node-npmdoc-beefy)
 
 #### local development server that aims to make using browserify fast and fun
 
